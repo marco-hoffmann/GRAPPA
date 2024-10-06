@@ -6,13 +6,18 @@ from torch_geometric.data import Data
 from rdkit.Chem import AllChem
 from src.gnn import GRAPPA
 
+
+###########################################################################################
+# These are the classes used for encoding the node and edge features in the molecular graph.
+# To rebuilt the model from the paper, they may not be altered.
+########################################################################################### 
 possible_atom_list = ['C','N','O','Cl','S','F','Br','I','P']
 possible_hybridization = [Chem.rdchem.HybridizationType.S,
                           Chem.rdchem.HybridizationType.SP, 
                           Chem.rdchem.HybridizationType.SP2,
                           Chem.rdchem.HybridizationType.SP3]
 possible_num_bonds = [0,1,2,3,4]
-possible_num_Hs  = [0,1,2,3] # Note: methane is excluded here, because it has 4 Hs and 0 bonds.
+possible_num_Hs  = [0,1,2,3] 
 possible_stereo  = [Chem.rdchem.BondStereo.STEREONONE,
                     Chem.rdchem.BondStereo.STEREOZ,
                     Chem.rdchem.BondStereo.STEREOE]
@@ -104,6 +109,19 @@ def mol_to_pyg(mol, temperature):
     d.validate()
     return d
 
+def load_model():
+    model = GRAPPA(24, 9, 'GAT', 32, 16, 3, 0.0, 'attention', 4, 3, 2, 1, False)
+    model.load_state_dict(torch.load('./models/GRAPPA_state_dict.pt', map_location='cpu'))
+    model.eval()
+    return model
+
+def preprocess(smiles_list: list, temperature_list: list):
+    """Preprocess the input data for the model."""
+    mol_list = [Chem.MolFromSmiles(smiles) for smiles in smiles_list]
+    input_loader = DataLoader([mol_to_pyg(mol, temperature/1000) for mol, temperature in zip(mol_list, temperature_list)], batch_size=32)
+
+    return input_loader
+
 class GRAPPAdirect(torch.nn.Module):
     '''Module for the direct prediction of vapor pressures using GRAPPA.'''
     def __init__(self):
@@ -159,16 +177,3 @@ class GRAPPAnormalbp(torch.nn.Module):
             prediction_list.extend(prediction)
         # Write prediction and unit into dictionary
         return prediction_list
-    
-def load_model():
-    model = GRAPPA(24, 9, 'GAT', 32, 16, 3, 0.0, 'attention', 4, 3, 2, 1, False)
-    model.load_state_dict(torch.load('./models/GRAPPA_state_dict.pt', map_location='cpu'))
-    model.eval()
-    return model
-
-def preprocess(smiles_list: list, temperature_list: list):
-    """Preprocess the input data for the model."""
-    mol_list = [Chem.MolFromSmiles(smiles) for smiles in smiles_list]
-    input_loader = DataLoader([mol_to_pyg(mol, temperature/1000) for mol, temperature in zip(mol_list, temperature_list)], batch_size=32)
-
-    return input_loader
