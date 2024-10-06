@@ -8,7 +8,7 @@ The following packages are required to use GRAPPA:
 
 Three applications of GRAPPA are already implemented and available as examples. Only the molecular structure (in the form of a SMILES string) is required.
 
-## Direct vapor pressure prediction
+## Direct Vapor Pressure Prediction
 
 
 ```python
@@ -30,6 +30,8 @@ for smiles, temperature, prediction in zip(smiles_list, temperature_list, predic
 
 ```
 
+## Prediction of Antoine Parameters
+
 ```python
 from src.utils import *
 
@@ -46,6 +48,8 @@ prediction_list = predictor(smiles_list)
 for smiles, prediction in zip(smiles_list, prediction_list):
     print(f"The Antoine parameters of {smiles} are: A = {prediction[0]:.2f}, B = {prediction[1]:.2f}, C = {prediction[2]:.2f}")
 ```
+
+## Prediction of Normal Boiling Points
 
 ```python
 from src.utils import *
