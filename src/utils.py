@@ -111,7 +111,7 @@ def mol_to_pyg(mol, temperature):
 
 def load_model():
     model = GRAPPA(24, 9, 'GAT', 32, 16, 3, 0.0, 'attention', 4, 3, 2, 1, False)
-    model.load_state_dict(torch.load('./models/GRAPPA_state_dict.pt', map_location='cpu'))
+    model.load_state_dict(torch.load('./models/GRAPPA_state_dict.pt', map_location='cpu', weights_only=True))
     model.eval()
     return model
 
