@@ -15,7 +15,7 @@ This repository contains the trained model and examples to show how to calculate
 
 GRAPPA is based on the Antoine equation in the form:
 
-$$ \ln(p^\mathrm{s} / \mathrm{kPa}) = A - \frac{B}{T / \,\mathrm{K} + C} $$
+$$ \ln(p^\mathrm{s} / \mathrm{kPa}) = A - \frac{B}{T / \mathrm{K} + C} $$
 
 where $p^\mathrm{s}$ is the vapor pressure, $T$ is the temperature, and $A$, $B$, and $C$ are the Antoine parameters.
 
