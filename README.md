@@ -6,12 +6,18 @@
     </h1>
   </div>
   <div style="width: 10%; padding-left: 10px;">
-    <img src="img/grappa.png" alt="description of image" style="height: 100%;" />
+    <img src="img/grappa.png" alt="description of image" style="height: 100%;"/>
   </div>
 </div>
 
 GRAPPA is a machine learning model based on a graph neural network architecture that allows predicting the parameters of the Antoine equation only based on molecular structure.
 This repository contains the trained model and examples to show how to calculate vapor pressure, the underlying Antoine parameters and (normal) boiling points. The model only requires the SMILES representation of the molecule as input.
+
+GRAPPA is based on the Antoine equation in the form:
+
+$$ \ln(p^\mathrm{s} / \mathrm{kPa}) = A - \frac{B}{T / \,\mathrm{K} + C} $$
+
+where $p^\mathrm{s}$ is the vapor pressure, $T$ is the temperature, and $A$, $B$, and $C$ are the Antoine parameters.
 
 ## Installing GRAPPA
 1. **Clone the repository**
