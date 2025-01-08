@@ -118,7 +118,7 @@ def load_model():
 def preprocess(smiles_list: list, temperature_list: list):
     """Preprocess the input data for the model."""
     mol_list = [Chem.MolFromSmiles(smiles) for smiles in smiles_list]
-    input_loader = DataLoader([mol_to_pyg(mol, temperature/1000) for mol, temperature in zip(mol_list, temperature_list)], batch_size=32)
+    input_loader = DataLoader([mol_to_pyg(mol, temperature) for mol, temperature in zip(mol_list, temperature_list)], batch_size=32)
 
     return input_loader
 

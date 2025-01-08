@@ -124,7 +124,7 @@ class AntoineLayer(nn.Module):
         A = antoine_parameters[:, 0]
         B = antoine_parameters[:, 1]
         C = antoine_parameters[:, 2]
-        result = A - B / (C + temperature * 1000 + 1e-8)  # Basic Antoine equation (1e-8 to avoid division by zero)
+        result = A - B / (C + temperature + 1e-8)  # Basic Antoine equation (1e-8 to avoid division by zero)
         
         return result # Antoine equation 
     
