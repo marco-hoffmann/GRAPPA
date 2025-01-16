@@ -164,16 +164,20 @@ class GRAPPAnormalbp(torch.nn.Module):
         super(GRAPPAnormalbp, self).__init__()
         self.model = load_model()
 
-    def forward(self, smiles_list):
+    def forward(self, smiles_list, pressure_list = None):
         '''
         Gives a list of normal boiling temperatures calculated with GRAPPA.
         Requires a list of smiles as input.
         '''
+        if pressure_list is None:
+            pressure_list = [np.log(101.325)]*len(smiles_list)
+        else:
+            pressure_list = np.log(np.array(pressure_list))
         input_loader = preprocess(smiles_list, [293.15]*len(smiles_list))
         prediction_list = []
         for batch in input_loader:
             antoine_params = self.model.get_antoine_parameters(batch.x, batch.temperature, batch.edge_index, batch.edge_attr, batch.numHDonors, batch.numHAcceptors, batch.batch).detach().numpy()
-            prediction = (antoine_params[:,1]/(antoine_params[:,0]-np.log(101.325)) - antoine_params[:,2])
+            prediction = (antoine_params[:,1]/(antoine_params[:,0]-pressure_list) - antoine_params[:,2])
             prediction_list.extend(prediction)
         # Write prediction and unit into dictionary
         return prediction_list
