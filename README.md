@@ -9,6 +9,7 @@ GRAPPA is based on the Antoine equation in the form:
 $$ \ln(p^\mathrm{s} / \mathrm{kPa}) = A - \frac{B}{T / \mathrm{K} + C} $$
 
 where $p^\mathrm{s}$ is the vapor pressure, $T$ is the temperature, and $A$, $B$, and $C$ are the Antoine parameters.
+A detailed description of the model, its appicability ranges and the expected prediction accuracies can be found in the preprint available on [arXiv](https://arxiv.org/abs/2501.08729).
 
 ## Installing GRAPPA
 1. **Clone the repository**
