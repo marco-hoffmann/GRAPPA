@@ -1,4 +1,4 @@
-# **GRAPPA** - **Gra**ph neural network for **P**redicting the **P**arameters of the **A**ntoine equation
+# **GRAPPA** - **Gra**ph Neural Network for **P**redicting the **P**arameters of the **A**ntoine equation
 
 
 GRAPPA is a machine learning model based on a graph neural network architecture that allows predicting the parameters of the Antoine equation only based on molecular structure.
