@@ -3,11 +3,8 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch import Tensor
 
-from torch.nn import BatchNorm1d
-from torch_geometric.nn import (GINEConv, GATv2Conv, NNConv, FiLMConv,TransformerConv,
-                                global_add_pool, global_max_pool, global_mean_pool, Set2Set)
+from torch_geometric.nn import GATv2Conv
 from torch_geometric.utils import scatter
 
 class GraphAttentionPooling(nn.Module):
